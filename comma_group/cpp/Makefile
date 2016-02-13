@@ -1,7 +1,7 @@
 appname := test 
 
 CXX := g++
-CXXFLAGS := -Wall -g -std=gnu++11
+CXXFLAGS := -Wall -g
 
 srcfiles := $(shell find . -maxdepth 1 -name "*.cpp")
 objects  := $(patsubst %.cpp, %.o, $(srcfiles))

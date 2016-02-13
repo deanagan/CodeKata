@@ -1,4 +1,6 @@
-#!/usr/bin/nodejs
+#!/usr/local/bin/node
+
+//#!/usr/bin/nodejs
 
 function countvowels(inputStr) {
     return inputStr.split("").filter ( function (ch) {
