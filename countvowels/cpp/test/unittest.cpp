@@ -1,7 +1,33 @@
 #include "vowelcounter.h"
 #include "gtest/gtest.h"
+#include "gmock/gmock.h"
 
 namespace {
+
+
+using ::testing::Return;
+using ::testing::_;
+
+class MockVowelCounter : public VowelCounter {
+
+    public:
+
+        MockVowelCounter(const std::string inp) : VowelCounter(inp) {}
+        MOCK_METHOD0(Count, size_t());
+
+};
+
+TEST(MockingVowelCounter, VowelCount)
+{
+    MockVowelCounter vcCounter("hello");    
+    
+    EXPECT_CALL(vcCounter, Count())
+//            .WillOnce(Return(2))
+            .WillOnce(Return(2));
+
+    EXPECT_EQ(vcCounter.Count(), 2);
+}
+
 
 // The fixture for testing class VowelCount.
 class VowelCountTest : public ::testing::Test {
@@ -45,8 +71,8 @@ TEST_F(VowelCountTest, DoesXyz) {
 }
 
 }  // namespace
-
+/*
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
-}
+}*/

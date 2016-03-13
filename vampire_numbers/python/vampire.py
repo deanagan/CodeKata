@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import test
+#import test
 
 
 def vampire_test(x,y):

@@ -1,2 +1,0 @@
-vowelcounter.o: vowelcounter.cpp vowelcounter.h
-main.o: main.cpp vowelcounter.h
