@@ -1,0 +1,50 @@
+import os
+
+
+gdir = '/home/dean/InstalledSoftware/GoogleTest/googletest-master'
+
+gtestdir = os.path.join(gdir, 'googletest')
+gmockdir = os.path.join(gdir, 'googlemock')
+
+
+gtest_include = os.path.join(gtestdir, 'include')
+gmock_include = os.path.join(gmockdir, 'include')
+
+test_env = Environment(CPPPATH=[gtestdir, gmockdir, gtest_include,  gmock_include, 'test', 'core'], CXXFLAGS='-std=gnu++11')
+
+common_libs = ['gtest', 'gtest_main', 'gmock', 'gmock_main', 'pthread']
+
+
+test_env.Append( LIBS = common_libs )
+
+sourcefiles = []
+def get_source_files(*args):
+    srcs = []
+    for srcpath,srctype in args:
+        srcs += [os.path.join(root, filename) for root, folders, filenames in os.walk(os.path.join(srcpath, 'src')) for filename in filenames]
+
+        srcs += [os.path.join(root, filename) for root, folders, filenames in 
+                os.walk(os.path.join(srcpath, 'include/' + srctype)) for filename in filenames if filename.endswith('.h')]
+    
+    return srcs
+
+sourcefiles.extend( get_source_files([gtestdir, 'gtest'], [gmockdir, 'gmock']) )
+
+# Need to remove gtest-port.cc because it is included in gtest-all.cc. 
+# Not removing it willl cause multiple definitions
+sourcefiles.remove( [src for src in sourcefiles if src.endswith('gtest-port.cc')][0] )
+
+test_env.Library('gtest.a', source = sourcefiles)
+test_env.Library('gtest_main.a', source = sourcefiles)
+test_env.Library('gmock.a', source = sourcefiles)
+test_env.Library('gmock_main.a', source = sourcefiles)
+test_env.Library('teabreak', source = 'core/vowelcounter.cpp')
+
+
+test_env.Program('unittest', source=['test/unittest.cpp', 'core/vowelcounter'], LIBPATH=['.'])
+
+
+env = Environment(CPPPATH=['.','core'], CXXFLAGS='-std=gnu++11')
+
+
+env.Program('mainapp', source=['main.cpp', 'core/vowelcounter.o'])
