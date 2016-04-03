@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+    <project name="Vowel Counter" default="build" basedir=".">
+        <description>Description Here!</description>
+        <property name="debug" value="true" overwrite="false" />
+        <target name="clean" description="remove all generated files">
+            <delete file="solution.exe" failonerror="false" />
+
+            <delete file="TestResult.xml" failonerror="false" />
+            <delete file="unittests.dll" failonerror="false" />
+            <delete file="solution.exe.mdb" failonerror="false" />
+        </target>
+        <target name="test" description="build unit tests">
+            <csc target="library" output="unittests.dll">
+                <sources>
+                    <include name="unittests.cs" />
+                    <include name="solution.cs" />
+                </sources> 
+                <references>
+                    <include name="unittests.dll" />
+                    <include name="/home/dean/InstalledSoftware/NUnit/NUnit.3.2.0/lib/net45/nunit.framework.dll" />
+                </references>
+
+            </csc>
+        </target>
+
+        <target name="build" description="compiles the source code">
+            <csc target="exe" output="solution.exe" debug="${debug}">
+                <sources>
+                    <include name="solution.cs" />
+                </sources>
+            </csc>
+        </target>
+        <target name="runtest" description="run the unit tests">
+            <exec program="/home/dean/InstalledSoftware/NUnit/NUnit.ConsoleRunner.3.2.0/tools/nunit3-console.exe">
+                <arg value="unittests.dll" />
+            </exec>
+        </target>
+
+
+    </project>
