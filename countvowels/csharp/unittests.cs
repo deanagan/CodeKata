@@ -11,7 +11,7 @@ public class OnlyTest
     public void MyTest()
     {
         string hello = "hello";
-        Assert.AreEqual(VowelCounter.countVowels(ref hello), 2);
+        Assert.AreEqual(VowelCounter.countVowels(hello), 2);
     }
 }
 
