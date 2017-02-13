@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import unittest
 from count_vowels import countvowels
 
@@ -12,3 +14,5 @@ class TestCase(unittest.TestCase):
     def test_empty_string(self):
         self.assertEqual(countvowels(""), 0)
 
+if __name__ == "__main__":
+    unittest.main()
