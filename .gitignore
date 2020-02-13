@@ -30,3 +30,21 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
+
+# Python 
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+scripts/
+pyvenv.cfg
